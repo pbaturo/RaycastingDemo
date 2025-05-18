@@ -1,13 +1,14 @@
-# SDL Game Template
+# RaycastingDemo
 
-This repository provides a ready-to-use cross-platform SDL game template. It includes a basic game loop, input handling, and rendering setup – perfect for getting started with 2D game development.
+This repository provides a raycasting engine demo built with SDL2. It demonstrates the core rendering techniques used in classic pseudo-3D games like Wolfenstein 3D, featuring texture mapping, wall rendering, and distance-based shading.
 
 ## Features
 
-- **Basic Game Loop**: Initialization, input processing, update, render, and cleanup.
+- **Raycasting Engine**: Efficient pseudo-3D rendering technique.
+- **Textured Walls**: Support for wall textures with proper perspective.
+- **Distance-Based Shading**: Creates depth perception through lighting effects.
 - **Cross-Platform Build Support**: Works on macOS, Linux, and Windows via Makefile.
 - **SDL2 Integration**: For window management and rendering.
-- **Delta Time Management**: Smooth frame updates across different machines.
 
 ## Prerequisites
 
@@ -19,8 +20,8 @@ This repository provides a ready-to-use cross-platform SDL game template. It inc
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/sdl-game-template.git
-   cd sdl-game-template
+   git clone https://github.com/YOUR_USERNAME/RaycastingDemo.git
+   cd RaycastingDemo
    ```
 
 2. Build the project:

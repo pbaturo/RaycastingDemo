@@ -9,13 +9,21 @@
 #define SCREEN_HEIGHT 480
 
 // Colors
-#define COLOR_WHITE 0xFFFFFFFF
-#define COLOR_BLACK 0xFF000000
-#define COLOR_RED   0xFF0000FF
-#define COLOR_GREEN 0xFF00FF00
-#define COLOR_BLUE  0xFFFF0000
+#define COLOR_WHITE 0x00FFFFFF // White: (255,255,255)
+#define COLOR_BLACK 0x00000000 // Black: (0,0,0)
+#define COLOR_RED   0x00FF0000 // Red: (255,0,0) 
+#define COLOR_GREEN 0x0000FF00 // Green: (0,255,0)
+#define COLOR_BLUE  0x000000FF // Blue: (0,0,255)
 
 // Game state
 extern bool isGameRunning;
 
+// Player
+typedef struct s_player {
+    // Player position
+    float x;
+    float y;
+} t_player;
+
+init_player(t_player *player, float x, float y);
 #endif // GAME_H

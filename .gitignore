@@ -1,0 +1,11 @@
+# Ignore build directories and artifacts
+/bin/
+/build/
+/*.dSYM
+*.exe
+*.o
+*.obj
+*.tmp
+
+# VSCode settings
+.vscode/

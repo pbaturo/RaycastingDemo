@@ -26,4 +26,5 @@ typedef struct s_player {
 } t_player;
 
 init_player(t_player *player, float x, float y);
+void move_player(t_player *player, bool up, bool down, bool left, bool right);
 #endif // GAME_H

@@ -5,8 +5,8 @@
 #include <math.h>
 
 // Screen dimension constants
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH 1024
+#define SCREEN_HEIGHT 720
 
 // Colors
 #define COLOR_WHITE 0x00FFFFFF // White: (255,255,255)

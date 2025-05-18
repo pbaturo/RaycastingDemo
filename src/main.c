@@ -12,7 +12,9 @@ bool isGameRunning = false;
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 int lastFrameTime = 0;
+//Game variables
 t_player g_player;
+char **g_map;
 
 
 // Function prototypes
@@ -49,6 +51,37 @@ void draw_square(SDL_Renderer* renderer, int x, int y, int size, Uint32 color) {
     }
 }
 
+void draw_map(SDL_Renderer* renderer, char **map) {
+    char **_map = map;
+    int color = COLOR_BLUE;
+    for (int y = 0; _map[y]; y++) {
+        for (int x=0; _map[y][x]; x++) {
+            if (map[y][x] == '1') {
+                draw_square(renderer,x *64, y*64, 64, color);
+            }
+        }
+    }
+}
+
+char **get_map(void) {
+    char **map = malloc(sizeof(char *) * 11);
+    for (int i = 0; i < 10; i++) {
+        map[i] = malloc(sizeof(char) * 11);
+    } 
+    map[0] = "11111111111";
+    map[1] = "10000000001";
+    map[2] = "10000000001";
+    map[3] = "10000000001";
+    map[4] = "10000000001";
+    map[5] = "10000000001";
+    map[6] = "10000000001";
+    map[7] = "10000000001";
+    map[8] = "10000000001";
+    map[9] = "11111111111";
+    map[10] = NULL;
+    return map;
+}
+
 int main(int argc, char **argv) {
     // Initialize Game
     isGameRunning = initialize_window();
@@ -77,6 +110,7 @@ int main(int argc, char **argv) {
 
 void initilize_game(void) {
     init_player(&g_player);
+    g_map = get_map();
 }
 
 
@@ -144,7 +178,7 @@ void render(void) {
     
     // Game rendering code will go here
     draw_square(renderer, g_player.x, g_player.y, 10, COLOR_GREEN);
-    
+    draw_map(renderer, g_map);
     // Present the rendered frame
     SDL_RenderPresent(renderer);
 }

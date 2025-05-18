@@ -196,4 +196,9 @@ info:
 	@echo "C Compiler: $(CC)"
 	@echo "SDL2 Flags: $(SDL2_FLAGS)"
 
+# Force build target: cleans and builds the project
+.PHONY: force-build
+force-build: clean build
+	@echo "Force build complete"
+
 .PHONY: all clean run run-debug debug release build install uninstall info

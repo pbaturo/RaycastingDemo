@@ -1,6 +1,6 @@
 #include "../include/game.h"
 
-init_player(t_player *player) {
+void init_player(t_player *player) {
     player->x = SCREEN_WIDTH / 2;
     player->y = SCREEN_HEIGHT / 2;
 }

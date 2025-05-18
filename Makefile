@@ -106,7 +106,7 @@ else
 endif
 
 # Source and executable
-SRC = src/main.c
+SRC = src/main.c src/player.c
 EXE = raycaster
 
 # Build directories

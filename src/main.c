@@ -12,9 +12,12 @@ bool isGameRunning = false;
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 int lastFrameTime = 0;
+t_player g_player;
+
 
 // Function prototypes
 bool initialize_window(void);
+void initilize_game(void);
 void process_input(void);
 void update(float deltaTime);
 void render(void);
@@ -47,8 +50,9 @@ void draw_square(SDL_Renderer* renderer, int x, int y, int size, Uint32 color) {
 }
 
 int main(int argc, char **argv) {
+    // Initialize Game
     isGameRunning = initialize_window();
-    
+    initilize_game();
     // Game loop
     while (isGameRunning) {
         // Calculate delta time
@@ -70,6 +74,11 @@ int main(int argc, char **argv) {
     cleanup();
     return 0;
 }
+
+void initilize_game(void) {
+    init_player(&g_player);
+}
+
 
 bool initialize_window(void) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -126,7 +135,7 @@ void render(void) {
     SDL_RenderClear(renderer);
     
     // Game rendering code will go here
-    draw_square(renderer, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 10, COLOR_GREEN);
+    draw_square(renderer, g_player.x, g_player.y, 10, COLOR_GREEN);
     
     // Present the rendered frame
     SDL_RenderPresent(renderer);

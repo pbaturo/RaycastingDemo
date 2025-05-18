@@ -155,13 +155,17 @@ void process_input(void) {
                 if (event.key.keysym.sym == SDLK_ESCAPE)
                     isGameRunning = false;
                 if (event.key.keysym.sym == SDLK_UP)
-                    move_player(&g_player, true, false, false, false);
+                    move_player(&g_player, true, false, false, false, false, false);
                 if (event.key.keysym.sym == SDLK_DOWN)
-                    move_player(&g_player, false, true, false, false);
+                    move_player(&g_player, false, true, false, false, false, false);
                 if (event.key.keysym.sym == SDLK_LEFT)
-                    move_player(&g_player, false, false, true, false);
+                    move_player(&g_player, false, false, true, false, false, false);
                 if (event.key.keysym.sym == SDLK_RIGHT)
-                    move_player(&g_player, false, false, false, true);
+                    move_player(&g_player, false, false, false, true, false, false);
+                if (event.key.keysym.sym == SDLK_a)
+                    move_player(&g_player, false, false, false, false, true, false);
+                if (event.key.keysym.sym == SDLK_d)
+                    move_player(&g_player, false, false, false, false, false, true);
                 break;
         }
     }

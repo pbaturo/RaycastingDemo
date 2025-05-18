@@ -5,8 +5,9 @@
 #include <math.h>
 
 // Screen dimension constants
-#define SCREEN_WIDTH 1024
+#define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 720
+#define BLOCK_SIZE 64
 
 // Colors
 #define COLOR_WHITE 0x00FFFFFF // White: (255,255,255)
@@ -23,9 +24,10 @@ typedef struct s_player {
     // Player position
     float x;
     float y;
+    float angle; // 
 } t_player;
 
 extern void init_player(t_player *player);
-extern void move_player(t_player *player, bool up, bool down, bool left, bool right);
+extern void move_player(t_player *player, bool up, bool down, bool left, bool right, bool rotate_left, bool rotate_right);
 
 #endif // GAME_H

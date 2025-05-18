@@ -20,6 +20,32 @@ void update(float deltaTime);
 void render(void);
 void cleanup(void);
 
+void put_pixel(SDL_Renderer* renderer, int x, int y, Uint32 color) {
+    if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT) {
+        return; // Out of bounds
+    }
+    // Set the color for drawing operations (R, G, B, A)
+    SDL_SetRenderDrawColor(renderer, (color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, 255);
+    // Draw a single point at the specified (x, y) position
+    SDL_RenderDrawPoint(renderer, x, y);
+}
+
+
+void draw_square(SDL_Renderer* renderer, int x, int y, int size, Uint32 color) {
+    for (int i = 0; i < size; i++) {
+        put_pixel(renderer, x + i, y, color);
+    }    
+    for (int i = 0; i < size; i++) {
+        put_pixel(renderer, x, y + i, color);
+    }
+    for (int i = 0; i < size; i++) {
+        put_pixel(renderer, x + i, y + size, color);
+    }
+    for (int i = 0; i < size; i++) {
+        put_pixel(renderer, x + size, y + i, color);
+    }
+}
+
 int main(int argc, char **argv) {
     isGameRunning = initialize_window();
     
@@ -100,6 +126,7 @@ void render(void) {
     SDL_RenderClear(renderer);
     
     // Game rendering code will go here
+    draw_square(renderer, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 10, COLOR_GREEN);
     
     // Present the rendered frame
     SDL_RenderPresent(renderer);

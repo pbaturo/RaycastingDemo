@@ -5,7 +5,7 @@ UNAME_S := $(shell uname -s 2>/dev/null || echo Windows)
 ifeq ($(UNAME_S),Darwin)
     OS = macos
     INSTALL_DIR = /usr/local/bin
-    APP_NAME = "SDL Game Template"  # changed from "Raycast demo"
+    APP_NAME = "RaycastingDemo"
     EXTENSION = 
     RM = rm -f
     MKDIR = mkdir -p
@@ -14,7 +14,7 @@ ifeq ($(UNAME_S),Darwin)
 else ifeq ($(UNAME_S),Linux)
     OS = linux
     INSTALL_DIR = /usr/local/bin
-    APP_NAME = "SDL Game Template"  # changed from "Game"
+    APP_NAME = "RaycastingDemo"
     EXTENSION = 
     RM = rm -f
     MKDIR = mkdir -p
@@ -24,7 +24,7 @@ else
     # Windows detection (both native and MinGW/MSYS)
     OS = windows
     INSTALL_DIR = "$(PROGRAMFILES)/$(APP_NAME)"
-    APP_NAME = "SDL Game Template"  # changed from "Game"
+    APP_NAME = "RaycastingDemo"
     EXTENSION = .exe
     RM = del /F /Q
     MKDIR = mkdir

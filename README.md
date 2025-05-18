@@ -20,7 +20,7 @@ This repository provides a raycasting engine demo built with SDL2. It demonstrat
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/RaycastingDemo.git
+   git clone https://github.com/pbaturo/RaycastingDemo.git
    cd RaycastingDemo
    ```
 

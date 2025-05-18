@@ -52,7 +52,7 @@ bool initialize_window(void) {
     }
     
     window = SDL_CreateWindow(
-        "Game Window",
+        "RaycastingDemo",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
         SCREEN_WIDTH,

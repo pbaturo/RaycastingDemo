@@ -120,6 +120,14 @@ void process_input(void) {
             case SDL_KEYDOWN:
                 if (event.key.keysym.sym == SDLK_ESCAPE)
                     isGameRunning = false;
+                if (event.key.keysym.sym == SDLK_UP)
+                    move_player(&g_player, true, false, false, false);
+                if (event.key.keysym.sym == SDLK_DOWN)
+                    move_player(&g_player, false, true, false, false);
+                if (event.key.keysym.sym == SDLK_LEFT)
+                    move_player(&g_player, false, false, true, false);
+                if (event.key.keysym.sym == SDLK_RIGHT)
+                    move_player(&g_player, false, false, false, true);
                 break;
         }
     }

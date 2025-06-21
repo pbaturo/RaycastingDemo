@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <SDL2/SDL.h>
-#include <stdbool.h>
 #include "../include/game.h"
 
 // Constants for time management

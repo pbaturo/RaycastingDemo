@@ -1,8 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
+#include <SDL2/SDL.h>
 
 // Screen dimension constants
 #define SCREEN_WIDTH 1280

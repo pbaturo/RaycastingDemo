@@ -65,16 +65,16 @@ char **get_map(void) {
     for (int i = 0; i < 10; i++) {
         map[i] = malloc(sizeof(char) * 11);
     } 
-    map[0] = "11111111111";
-    map[1] = "10000000001";
-    map[2] = "10000000001";
-    map[3] = "10000000001";
-    map[4] = "10000000001";
-    map[5] = "10000000001";
-    map[6] = "10000000001";
-    map[7] = "10000000001";
-    map[8] = "10000000001";
-    map[9] = "11111111111";
+    map[0] = "1111111111111";
+    map[1] = "1000000000001";
+    map[2] = "1000000000001";
+    map[3] = "1000000000001";
+    map[4] = "1000000000001";
+    map[5] = "1000000000001";
+    map[6] = "1000000000001";
+    map[7] = "1000000000001";
+    map[8] = "1000000000001";
+    map[9] = "1111111111111";
     map[10] = NULL;
     return map;
 }
@@ -172,6 +172,15 @@ void update(float deltaTime) {
     // Game logic update code will go here
 }
 
+bool touch(float px, float py) {
+    int x = (int)(px / BLOCK_SIZE);
+    int y = (int)(py / BLOCK_SIZE);
+    if (g_map[y][x] == '1') {
+        return true; // Collision detected
+    }
+    return false; // No collision
+}
+
 void render(void) {
     // Clear the screen
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -181,6 +190,19 @@ void render(void) {
     draw_square(renderer, g_player.x, g_player.y, 10, COLOR_GREEN);
     draw_map(renderer, g_map);
     // Present the rendered frame
+    float ray_x = g_player.x;
+    float ray_y = g_player.y;
+    float cos_angle = cos(g_player.angle);
+    float sin_angle = sin(g_player.angle);
+
+    while (!touch(ray_x, ray_y)) {
+        put_pixel(renderer, (int)ray_x, (int)ray_y, COLOR_RED);
+        // Move the ray forward in the direction of the player's angle
+        ray_x += cos_angle;
+        ray_y += sin_angle;
+    }
+
+    
     SDL_RenderPresent(renderer);
 }
 

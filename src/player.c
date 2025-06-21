@@ -13,7 +13,8 @@ void move_player(t_player *player, bool up, bool down, bool left, bool right, bo
     float sin_angle = sin(player->angle);
     if (rotate_left) {
         player->angle -= angle_speed;
-    } else {
+    }
+    if (rotate_right) {
         player->angle += angle_speed;
     }
     if (player->angle < 0) {

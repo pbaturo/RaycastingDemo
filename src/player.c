@@ -17,11 +17,11 @@ void move_player(t_player *player, bool up, bool down, bool left, bool right, bo
     if (rotate_right) {
         player->angle += angle_speed;
     }
-    if (player->angle < 0) {
-        player->angle = 2 * M_PI;
-    }
     if (player->angle > 2 * M_PI) {
         player->angle = 0;
+    }
+    if (player->angle < 0) {
+        player->angle = 2 * M_PI;
     }
     
     if (up) {
@@ -33,11 +33,11 @@ void move_player(t_player *player, bool up, bool down, bool left, bool right, bo
         player->y -= sin_angle * speed;
     }
     if (left) {
-        player->x += cos_angle * speed;
-        player->y -= sin_angle * speed;
+        player->y -= cos_angle * speed;
+        player->x += sin_angle * speed;
     }
     if (right) {
-        player->x -= cos_angle * speed;
-        player->y += sin_angle * speed;
+        player->y += cos_angle * speed;
+        player->x -= sin_angle * speed;
     }
 }

@@ -36,7 +36,7 @@ void put_pixel(SDL_Renderer* renderer, int x, int y, Uint32 color) {
 void draw_square(SDL_Renderer* renderer, int x, int y, int size, Uint32 color) {
     for (int i = 0; i < size; i++) {
         put_pixel(renderer, x + i, y, color);
-    }    
+    }
     for (int i = 0; i < size; i++) {
         put_pixel(renderer, x, y + i, color);
     }
@@ -60,11 +60,34 @@ void draw_map(SDL_Renderer* renderer, char **map) {
     }
 }
 
+bool touch(float px, float py) {
+    int x = (int)(px / BLOCK_SIZE);
+    int y = (int)(py / BLOCK_SIZE);
+    if (g_map[y][x] == '1') {
+        return true; // Collision detected
+    }
+    return false; // No collision
+}
+
+void draw_line(SDL_Renderer* render, float angle, Uint32 color) {
+    float cos_angle = cos(angle);
+    float sin_angle = sin(angle);
+    float ray_x = g_player.x;
+    float ray_y = g_player.y;
+
+    while (!touch(ray_x, ray_y)) {
+        put_pixel(renderer, (int)ray_x, (int)ray_y, color);
+        // Move the ray forward in the direction of the player's angle
+        ray_x += cos_angle;
+        ray_y += sin_angle;
+    }
+}
+
 char **get_map(void) {
     char **map = malloc(sizeof(char *) * 11);
     for (int i = 0; i < 10; i++) {
         map[i] = malloc(sizeof(char) * 11);
-    } 
+    }
     map[0] = "1111111111111";
     map[1] = "1000000000001";
     map[2] = "1000000000001";
@@ -90,17 +113,17 @@ int main(int argc, char **argv) {
         if (timeToWait > 0 && timeToWait <= FRAME_TARGET_TIME) {
             SDL_Delay(timeToWait);
         }
-        
+
         // Delta time in seconds
         float deltaTime = (SDL_GetTicks() - lastFrameTime) / 1000.0f;
         lastFrameTime = SDL_GetTicks();
-        
+
         // Game loop phases
         process_input();
         update(deltaTime);
         render();
     }
-    
+
     cleanup();
     return 0;
 }
@@ -116,7 +139,7 @@ bool initialize_window(void) {
         fprintf(stderr, "Error initializing SDL: %s\n", SDL_GetError());
         return false;
     }
-    
+
     window = SDL_CreateWindow(
         "RaycastingDemo",
         SDL_WINDOWPOS_CENTERED,
@@ -125,19 +148,19 @@ bool initialize_window(void) {
         SCREEN_HEIGHT,
         SDL_WINDOW_SHOWN
     );
-    
+
     if (!window) {
         fprintf(stderr, "Error creating SDL Window: %s\n", SDL_GetError());
         return false;
     }
-    
+
     // Create a renderer
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!renderer) {
         fprintf(stderr, "Error creating SDL Renderer: %s\n", SDL_GetError());
         return false;
     }
-    
+
     return true;
 }
 
@@ -172,37 +195,36 @@ void update(float deltaTime) {
     // Game logic update code will go here
 }
 
-bool touch(float px, float py) {
-    int x = (int)(px / BLOCK_SIZE);
-    int y = (int)(py / BLOCK_SIZE);
-    if (g_map[y][x] == '1') {
-        return true; // Collision detected
-    }
-    return false; // No collision
-}
-
 void render(void) {
     // Clear the screen
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
-    
+
     // Game rendering code will go here
     draw_square(renderer, g_player.x, g_player.y, 10, COLOR_GREEN);
     draw_map(renderer, g_map);
-    // Present the rendered frame
-    float ray_x = g_player.x;
-    float ray_y = g_player.y;
-    float cos_angle = cos(g_player.angle);
-    float sin_angle = sin(g_player.angle);
 
-    while (!touch(ray_x, ray_y)) {
-        put_pixel(renderer, (int)ray_x, (int)ray_y, COLOR_RED);
-        // Move the ray forward in the direction of the player's angle
-        ray_x += cos_angle;
-        ray_y += sin_angle;
+    // // Present the rendered frame
+    // float ray_x = g_player.x;
+    // float ray_y = g_player.y;
+    // float cos_angle = cos(g_player.angle);
+    // float sin_angle = sin(g_player.angle);
+
+    // while (!touch(ray_x, ray_y)) {
+    //     put_pixel(renderer, (int)ray_x, (int)ray_y, COLOR_RED);
+    //     // Move the ray forward in the direction of the player's angle
+    //     ray_x += cos_angle;
+    //     ray_y += sin_angle;
+    // }
+
+    float fraction = M_PI / 3 / SCREEN_WIDTH; // 60 degrees field of view
+    float start_angle = g_player.angle - (M_PI / 6); // Start angle
+    int i = 0;
+    while (i < SCREEN_WIDTH) {
+        draw_line(renderer, start_angle, COLOR_RED);
+        start_angle += fraction;
+        ++i;
     }
-
-    
     SDL_RenderPresent(renderer);
 }
 

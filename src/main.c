@@ -69,18 +69,29 @@ bool touch(float px, float py) {
     return false; // No collision
 }
 
-void draw_line(SDL_Renderer* render, float angle, Uint32 color) {
-    float cos_angle = cos(angle);
-    float sin_angle = sin(angle);
+void draw_line(SDL_Renderer* render, float start_x, int step, Uint32 color) {
+    float cos_angle = cos(start_x);
+    float sin_angle = sin(start_x);
     float ray_x = g_player.x;
     float ray_y = g_player.y;
 
     while (!touch(ray_x, ray_y)) {
-        put_pixel(renderer, (int)ray_x, (int)ray_y, color);
+        //put_pixel(renderer, (int)ray_x, (int)ray_y, color);
         // Move the ray forward in the direction of the player's angle
         ray_x += cos_angle;
         ray_y += sin_angle;
     }
+
+    float distance = sqrt((ray_x - g_player.x) * (ray_x - g_player.x) + (ray_y - g_player.y) * (ray_y - g_player.y));
+    float height = (BLOCK_SIZE / distance) * (SCREEN_WIDTH / 2) ;
+    int start_y = (SCREEN_HEIGHT - height) / 2;
+    int end = start_y + height;
+    while (start_y < end)
+    {
+        put_pixel(renderer, step, start_y, COLOR_BLUE);
+        ++start_y;
+    }
+    
 }
 
 char **get_map(void) {
@@ -201,27 +212,14 @@ void render(void) {
     SDL_RenderClear(renderer);
 
     // Game rendering code will go here
-    draw_square(renderer, g_player.x, g_player.y, 10, COLOR_GREEN);
-    draw_map(renderer, g_map);
-
-    // // Present the rendered frame
-    // float ray_x = g_player.x;
-    // float ray_y = g_player.y;
-    // float cos_angle = cos(g_player.angle);
-    // float sin_angle = sin(g_player.angle);
-
-    // while (!touch(ray_x, ray_y)) {
-    //     put_pixel(renderer, (int)ray_x, (int)ray_y, COLOR_RED);
-    //     // Move the ray forward in the direction of the player's angle
-    //     ray_x += cos_angle;
-    //     ray_y += sin_angle;
-    // }
+    // draw_square(renderer, g_player.x, g_player.y, 10, COLOR_GREEN);
+    // draw_map(renderer, g_map);
 
     float fraction = M_PI / 3 / SCREEN_WIDTH; // 60 degrees field of view
     float start_angle = g_player.angle - (M_PI / 6); // Start angle
     int i = 0;
     while (i < SCREEN_WIDTH) {
-        draw_line(renderer, start_angle, COLOR_RED);
+        draw_line(renderer, start_angle, i, COLOR_RED);
         start_angle += fraction;
         ++i;
     }

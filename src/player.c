@@ -7,8 +7,8 @@ void init_player(t_player *player) {
 }
 
 void move_player(t_player *player, bool up, bool down, bool left, bool right, bool rotate_left, bool rotate_right) {
-    int speed = 5;
-    float angle_speed = 0.1;
+    int speed = 3;
+    float angle_speed = 0.03;
     float cos_angle = cos(player->angle);
     float sin_angle = sin(player->angle);
     if (rotate_left) {

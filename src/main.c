@@ -69,6 +69,15 @@ bool touch(float px, float py) {
     return false; // No collision
 }
 
+// Fix the fishbowl effect by adjusting the distance based on the angle
+float fixed_distance(float x1, float y1, float x2, float y2) {
+    float detla_x = x2 - x1;
+    float detla_y = y2 - y1;
+    float angle = atan2(detla_y, detla_x) - g_player.angle;
+    float fixed_distance = sqrt(detla_x * detla_x + detla_y * detla_y) * cos(angle);
+    return fixed_distance;
+}
+
 void draw_line(SDL_Renderer* render, float start_x, int step, Uint32 color) {
     float cos_angle = cos(start_x);
     float sin_angle = sin(start_x);
@@ -82,7 +91,7 @@ void draw_line(SDL_Renderer* render, float start_x, int step, Uint32 color) {
         ray_y += sin_angle;
     }
 
-    float distance = sqrt((ray_x - g_player.x) * (ray_x - g_player.x) + (ray_y - g_player.y) * (ray_y - g_player.y));
+    float distance = fixed_distance(g_player.x, g_player.y, ray_x, ray_y);
     float height = (BLOCK_SIZE / distance) * (SCREEN_WIDTH / 2) ;
     int start_y = (SCREEN_HEIGHT - height) / 2;
     int end = start_y + height;

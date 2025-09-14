@@ -58,7 +58,7 @@ ifeq ($(OS),windows)
     else
         CC = gcc
     endif
-    CFLAGS = -Wall -std=c11
+    CFLAGS = -Wall -std=c17
     
     # Try SDL2 config if available (MSYS2/MinGW), otherwise use common paths
     SDL2_CONFIG := $(shell where sdl2-config 2>nul)
@@ -92,7 +92,7 @@ else
         CC = gcc
     endif
     
-    CFLAGS = -Wall -std=c11
+    CFLAGS = -Wall -std=c17
     
     # Check if sdl2-config exists
     ifneq ($(shell which sdl2-config),)

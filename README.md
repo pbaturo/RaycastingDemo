@@ -50,6 +50,10 @@ This repository provides a raycasting engine demo built with SDL2. It demonstrat
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+## Credits
+
+This project was inspired by [Raycasting in C by Beqa Tvildiani](https://www.youtube.com/watch?v=G9i78WoBBIU).
+
 ## Contributing
 
 Contributions are welcome! Please open issues or pull requests for improvements.

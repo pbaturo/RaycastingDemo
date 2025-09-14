@@ -85,20 +85,23 @@ void draw_line(SDL_Renderer* render, float start_x, int step, Uint32 color) {
     float ray_y = g_player.y;
 
     while (!touch(ray_x, ray_y)) {
-        //put_pixel(renderer, (int)ray_x, (int)ray_y, color);
+        if (DEBUG) {
+            put_pixel(renderer, (int)ray_x, (int)ray_y, color);
+        }
         // Move the ray forward in the direction of the player's angle
         ray_x += cos_angle;
         ray_y += sin_angle;
     }
-
-    float distance = fixed_distance(g_player.x, g_player.y, ray_x, ray_y);
-    float height = (BLOCK_SIZE / distance) * (SCREEN_WIDTH / 2) ;
-    int start_y = (SCREEN_HEIGHT - height) / 2;
-    int end = start_y + height;
-    while (start_y < end)
-    {
-        put_pixel(renderer, step, start_y, COLOR_BLUE);
-        ++start_y;
+    if (!DEBUG) { 
+        float distance = fixed_distance(g_player.x, g_player.y, ray_x, ray_y);
+        float height = (BLOCK_SIZE / distance) * (SCREEN_WIDTH / 2) ;
+        int start_y = (SCREEN_HEIGHT - height) / 2;
+        int end = start_y + height;
+        while (start_y < end)
+        {
+            put_pixel(renderer, step, start_y, COLOR_BLUE);
+            ++start_y;
+        }
     }
     
 }
@@ -221,8 +224,10 @@ void render(void) {
     SDL_RenderClear(renderer);
 
     // Game rendering code will go here
-    // draw_square(renderer, g_player.x, g_player.y, 10, COLOR_GREEN);
-    // draw_map(renderer, g_map);
+    if (DEBUG) {
+        draw_square(renderer, g_player.x, g_player.y, 10, COLOR_GREEN);
+        draw_map(renderer, g_map);
+    }
 
     float fraction = M_PI / 3 / SCREEN_WIDTH; // 60 degrees field of view
     float start_angle = g_player.angle - (M_PI / 6); // Start angle

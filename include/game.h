@@ -8,7 +8,7 @@
 #include <SDL2/SDL.h>
 
 // Debug mode
-#define DEBUG 1
+#define DEBUG 0
 
 // Screen dimension constants
 #define SCREEN_WIDTH 1280
